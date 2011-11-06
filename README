@@ -1,9 +1,10 @@
 Perl script to dowload daily newspaper De Standaard.
 
 Needed from CPAN:
-WWW::Mechanize;
-HTML::Form;
-Getopt::Std;
+WWW::Mechanize
+HTML::Form
+CAM::PDF
+Getopt::Std
 
 Currently supported command-line options are:
 -D: Get the whole daily newspaper
@@ -22,10 +23,6 @@ Get only Vooraan in de krant
 Get Sport and Economie
 ./getstandaard -Dse
 
-Furthermore, this script still relies on joinPDF which you can find here: http://www.iis.ee.ic.ac.uk/~g.briscoe/
-Alternatives are more than welcome.
-
 To-do:
 -Provide options for the weekly extras.
--Keep downloaded one-page pdf's in memory instead of first writing them to disk and merging them afterwards.
 -Code pimping and cleanup.
