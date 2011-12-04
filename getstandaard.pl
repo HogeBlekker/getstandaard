@@ -118,6 +118,9 @@ sub download {
 		$i++;
 	}
 	(my $day, my $month, my $year) = (localtime)[3,4,5];
+	$month += 1;
+	$year -= 100;
+	if ($day < 10) { $day = "0$day"; }
 	my $krantnaam = "standaard_" . $year . $month . $day . ".pdf";
 	$output->cleansave();
 	$output->output($krantnaam);
