@@ -1,4 +1,4 @@
-Perl script to dowload daily newspaper De Standaard and the extras
+Perl script to download daily newspaper De Standaard and the extras
 
 Needed from CPAN:
 WWW::Mechanize
