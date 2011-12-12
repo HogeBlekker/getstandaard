@@ -1,4 +1,4 @@
-Perl script to dowload daily newspaper De Standaard.
+Perl script to dowload daily newspaper De Standaard and the extras
 
 Needed from CPAN:
 WWW::Mechanize
@@ -22,7 +22,14 @@ Get only Vooraan in de krant
 ./getstandaard -Dv
 Get Sport and Economie
 ./getstandaard -Dse
+Get DS Weekblad
+./getstandaard -W
+Get DSM
+./getstandaard -S
+Get Reizen
+./getstandaard -R
+Get Letteren
+./getstandaard -L
 
 To-do:
--Provide options for the weekly extras.
 -Code pimping and cleanup.
