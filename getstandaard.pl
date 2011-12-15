@@ -10,7 +10,7 @@ use HTML::Form;
 use CAM::PDF;
 # To get commandline options
 use Getopt::Std;
-our($opt_D, $opt_v, $opt_b, $opt_o, $opt_s, $opt_e, $opt_u, $opt_i, $opt_c, $opt_p, $opt_W);
+our($opt_D, $opt_v, $opt_b, $opt_o, $opt_s, $opt_e, $opt_u, $opt_i, $opt_c, $opt_p, $opt_W, $opt_S, $opt_R, $opt_L);
 
 my $login = '';
 my $password = '';
@@ -19,7 +19,7 @@ my $password = '';
 my @choices;
 
 # Get commandline switches
-getopts('Dvboseuicp');
+getopts('DWSRLvboseuicp');
 if ($opt_D) { # Dagkrant
 	if ($opt_v && $opt_b && $opt_o && $opt_s && $opt_e && $opt_u) { # && $opt_i && $opt_c && $opt_p) {
 		unshift(@choices,"Dagkrant");
@@ -36,8 +36,15 @@ if ($opt_D) { # Dagkrant
 		#if ($opt_c) {push(@choices,"Cultuur & Media");} else {$opt_c = 0}; # Cultuur & Media
 		#if ($opt_p) {push(@choices,"Regio");} else {$opt_p = 0}; # Regio
 	}
+} elsif ($opt_W) {
+	push(@choices,"DS Weekblad");
+} elsif ($opt_S) {
+	push(@choices,"DSM");
+} elsif ($opt_R) {
+	push(@choices,"Reizen");
+} elsif ($opt_L) {
+	push(@choices,"Letteren");
 };
-#print @choices;
 
 # Make the Mech object
 my $mech = WWW::Mechanize->new();
@@ -104,6 +111,7 @@ sub download {
 	my $i = 0;
 	my $output;
 	my $otherpdf;
+	my $krantnaam;
 	foreach (@_) {
 		my $url = "http://www.standaard.be/krant/beeld/toonpdf.aspx?file=" . $_[$i];
 		my $page = "page" . $i . ".pdf";
@@ -121,7 +129,17 @@ sub download {
 	$month += 1;
 	$year -= 100;
 	if ($day < 10) { $day = "0$day"; }
-	my $krantnaam = "standaard_" . $year . $month . $day . ".pdf";
+	if ($opt_D) {
+		$krantnaam = "standaard_" . $year . $month . $day . ".pdf";
+	} elsif ($opt_W) {
+		$krantnaam = "weekblad_" . $year . $month . $day . ".pdf";
+	} elsif ($opt_S) {
+		$krantnaam = "magazine_" . $year . $month . $day . ".pdf";
+	} elsif ($opt_R) {
+		$krantnaam = "reizen_" . $year . $month . $day . ".pdf";
+	} elsif ($opt_L) {
+		$krantnaam = "letteren_" . $year . $month . $day . ".pdf";
+	}
 	$output->cleansave();
 	$output->output($krantnaam);
 }
